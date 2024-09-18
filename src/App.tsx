@@ -10,7 +10,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import Login from './pages/login/Login'
 import Register from './pages/register/Register'
-import TaskList from './pages/tasklist/TaskList'
+import TaskList from './components/task/tasklist/TaskList'
 import FormTask from './components/task/formtask/FormTask'
 import Tarefas from './pages/tarefas/Tarefas'
 

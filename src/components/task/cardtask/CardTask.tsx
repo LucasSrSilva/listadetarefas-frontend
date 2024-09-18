@@ -17,10 +17,10 @@ function CardTask({ task }: TaskProps) {
 
     useEffect(() => {
         if (token === '') {
-          ToastAlerta("Você precisa estar logado", "info")
-          navigate('/login')
+            ToastAlerta("Você precisa estar logado", "info")
+            navigate('/login')
         }
-      }, [token])
+    }, [token])
 
     async function deletarTarefa() {
         try {
@@ -37,18 +37,31 @@ function CardTask({ task }: TaskProps) {
         }
     }
     return (
-        <div>
-            <div>
-                <p>{task.titulo}</p>
-                <p>{task.descricao}</p>
-                <p>{new Intl.DateTimeFormat(undefined, {
-                    dateStyle: 'full',
-                    timeStyle: 'medium',
-                }).format(new Date(task.data))}</p>
+        <>
+            <div className="bg-orange-200 border border-black p-4 rounded-lg shadow-md w-80 m-1">
+                <div className="mb-4">
+                    <h3 className="text-lg font-bold">{task.titulo}</h3>
+                    <p className="text-sm text-gray-700">{task.descricao}</p>
+                    <p className="text-xs text-gray-600 mt-2">
+                        {new Intl.DateTimeFormat(undefined, {
+                            dateStyle: 'full',
+                            timeStyle: 'medium',
+                        }).format(new Date(task.data))}
+                    </p>
+                </div>
+                <div className="flex justify-between">
+                    <button className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700">
+                        <Link to={`/editarTarefa/${task.id}`}>Editar</Link>
+                    </button>
+                    <button
+                        className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700"
+                        onClick={deletarTarefa}
+                    >
+                        Deletar tarefa
+                    </button>
+                </div>
             </div>
-            <button><Link to={`/editarTarefa/${task.id}`}>Editar</Link></button>
-            <button onClick={deletarTarefa}>Deletar tarefa</button>
-        </div>
+        </>
     )
 }
 

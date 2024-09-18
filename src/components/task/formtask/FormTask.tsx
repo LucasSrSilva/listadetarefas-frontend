@@ -10,7 +10,7 @@ interface FormTaskProps {
     fecharPopup: () => void;  // Definindo o tipo da prop fecharPopup
 }
 
-function FormTask({fecharPopup}: FormTaskProps) {
+function FormTask({ fecharPopup }: FormTaskProps) {
     const [task, setTask] = useState<Task>({} as Task)
     const { id } = useParams<{ id: string }>()
     const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -106,65 +106,71 @@ function FormTask({fecharPopup}: FormTaskProps) {
     }
 
 
-  return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-    <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md mx-auto flex flex-col items-center">
-        <h1 className="text-3xl font-bold text-center mb-6 text-slate-900">
-            {id !== undefined ? 'Editar Tarefa' : 'Criar Tarefa'}
-        </h1>
+    return (
+        <>
+            <div className="fixed inset-0 bg-black bg-opacity-50 -z-10" onClick={fecharPopup}></div>
 
-        <form className="w-full space-y-6" onSubmit={gerarNovaTarefa}>
-            <div className="flex flex-col space-y-2">
-                <label htmlFor="titulo" className="text-sm font-medium text-slate-700">
-                    Título da Tarefa
-                </label>
-                <input
-                    type="text"
-                    placeholder="Título"
-                    name="titulo"
-                    required
-                    className="border border-gray-300 rounded-lg p-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    value={task.titulo}
-                    onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
-                />
+            <div className="bg-white rounded-lg shadow-lg flex flex-col items-center gap-2 pb-5 z-10">
+                <div className='w-full flex justify-end px-2'>
+                    <button className='absolute' onClick={fecharPopup}>X</button>
+                </div>
+                <h1 className="text-3xl font-bold text-center my-6 text-orange-600">
+                    {id !== undefined ? 'Editar Tarefa' : 'Criar Tarefa'}
+                </h1>
+
+                <form className="w-full space-y-6 px-10" onSubmit={gerarNovaTarefa}>
+                    <div className="flex flex-col space-y-2">
+                        <label htmlFor="titulo" className="text-sm font-medium text-slate-700">
+                            Título da Tarefa
+                        </label>
+                        <input
+                            type="text"
+                            placeholder="Título"
+                            name="titulo"
+                            required
+                            className="border border-gray-300 rounded-lg p-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            value={task.titulo}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+                        />
+                    </div>
+
+                    <div className="flex flex-col space-y-2">
+                        <label htmlFor="descricao" className="text-sm font-medium text-slate-700">
+                            Descrição da Tarefa
+                        </label>
+                        <input
+                            placeholder="Descrição"
+                            name="descricao"
+                            required
+                            className="border border-gray-300 rounded-lg p-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none h-28"
+                            value={task.descricao}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+                        />
+                    </div>
+
+                    <button
+                        type='submit'
+                        className='rounded bg-orange-600 hover:bg-orange-700 text-white font-semibold w-full py-3 flex justify-center items-center transition-all duration-200'
+                        disabled={isLoading}
+                        onClick={fecharPopup}
+                    >
+                        {isLoading ? (
+                            <RotatingLines
+                                strokeColor="white"
+                                strokeWidth="5"
+                                animationDuration="0.75"
+                                width="24"
+                                visible={true}
+                            />
+                        ) : (
+                            <span>{id !== undefined ? 'Atualizar' : 'Cadastrar'}</span>
+                        )}
+                    </button>
+                </form>
             </div>
+        </>
 
-            <div className="flex flex-col space-y-2">
-                <label htmlFor="descricao" className="text-sm font-medium text-slate-700">
-                    Descrição da Tarefa
-                </label>
-                <input
-                    placeholder="Descrição"
-                    name="descricao"
-                    required
-                    className="border border-gray-300 rounded-lg p-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none h-28"
-                    value={task.descricao}
-                    onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
-                />
-            </div>
-
-            <button
-                type='submit'
-                className='rounded bg-indigo-600 hover:bg-indigo-700 text-white font-semibold w-full py-3 flex justify-center items-center transition-all duration-200'
-                disabled={isLoading}
-                onClick={fecharPopup}
-            >
-                {isLoading ? (
-                    <RotatingLines
-                        strokeColor="white"
-                        strokeWidth="5"
-                        animationDuration="0.75"
-                        width="24"
-                        visible={true}
-                    />
-                ) : (
-                    <span>{id !== undefined ? 'Atualizar' : 'Cadastrar'}</span>
-                )}
-            </button>
-        </form>
-    </div>
-</div>
-  )
+    )
 }
 
 export default FormTask

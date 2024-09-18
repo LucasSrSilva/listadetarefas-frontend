@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import TaskList from '../tasklist/TaskList'
+import TaskList from '../../components/task/tasklist/TaskList'
 import FormTask from '../../components/task/formtask/FormTask'
 import Popup from 'reactjs-popup'
 
@@ -17,7 +17,7 @@ function Tarefas() {
 
     return (
         <>
-            <div className='w-full bg-orange-300 flex flex-col items-center'>
+            <div className='w-full bg-orange-300 flex flex-col items-center gap-2 border border-black'>
                 <button onClick={abrirPopup}>Criar tarefa</button>
                 <Popup
                     open={isPopupOpen}

@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
-import Task from '../../models/Task';
-import CardTask from '../../components/task/cardtask/CardTask';
-import { buscar } from '../../services/Service';
-import { AuthContext } from '../../contexts/AuthContext';
-import { ToastAlerta } from '../../utils/ToastAlerta';
+import Task from '../../../models/Task';
+import CardTask from '../cardtask/CardTask';
+import { buscar } from '../../../services/Service';
+import { AuthContext } from '../../../contexts/AuthContext';
+import { ToastAlerta } from '../../../utils/ToastAlerta';
 import { useNavigate } from 'react-router-dom';
 
 
